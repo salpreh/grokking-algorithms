@@ -1,14 +1,20 @@
 package com.salpreh.algorithms.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor(staticName = "of")
+@Getter
+@Setter
 public class BiLinkedNode<T> {
   private T data;
   private BiLinkedNode<T> right;
   private BiLinkedNode<T> left;
+
+  public BiLinkedNode(T data, BiLinkedNode<T> right, BiLinkedNode<T> left) {
+    this.data = data;
+    this.right = right;
+    this.left = left;
+  }
 
   public static <T> BiLinkedNode<T> of(T data) {
     return new BiLinkedNode<>(data, null, null);
