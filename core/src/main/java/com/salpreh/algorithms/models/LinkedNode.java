@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LinkedNode<T> implements Iterator<LinkedNode<T>> {
+public class LinkedNode<T> implements Iterable<LinkedNode<T>> {
   private T data;
   private LinkedNode<T> next;
 
@@ -20,12 +20,28 @@ public class LinkedNode<T> implements Iterator<LinkedNode<T>> {
   }
 
   @Override
-  public boolean hasNext() {
-    return next != null;
+  public Iterator<LinkedNode<T>> iterator() {
+    return new LinkedNodeIterator<>(this);
   }
 
-  @Override
-  public LinkedNode<T> next() {
-    return next;
+  private class LinkedNodeIterator<T> implements Iterator<LinkedNode<T>> {
+    private LinkedNode<T> current;
+
+    protected LinkedNodeIterator(LinkedNode<T> root) {
+      this.current = root;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return current != null;
+    }
+
+    @Override
+    public LinkedNode<T> next() {
+      LinkedNode<T> item = current;
+      current = current.getNext();
+
+      return item;
+    }
   }
 }
