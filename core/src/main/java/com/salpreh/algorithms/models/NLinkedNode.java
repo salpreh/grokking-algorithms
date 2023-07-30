@@ -46,7 +46,7 @@ public class NLinkedNode<T> implements Iterable<NLinkedNode<T>> {
     return new NLinkedNodeBredathIterator(this);
   }
 
-  private class NLinkedNodeBredathIterator implements Iterator<NLinkedNode<T>> {
+  protected class NLinkedNodeBredathIterator implements Iterator<NLinkedNode<T>> {
 
     private Queue<NLinkedNode<T>> queue = new ArrayDeque<>();
 

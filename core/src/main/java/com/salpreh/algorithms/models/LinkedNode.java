@@ -21,10 +21,10 @@ public class LinkedNode<T> implements Iterable<LinkedNode<T>> {
 
   @Override
   public Iterator<LinkedNode<T>> iterator() {
-    return new LinkedNodeIterator<>(this);
+    return new LinkedNodeIterator(this);
   }
 
-  private class LinkedNodeIterator<T> implements Iterator<LinkedNode<T>> {
+  protected class LinkedNodeIterator implements Iterator<LinkedNode<T>> {
     private LinkedNode<T> current;
 
     protected LinkedNodeIterator(LinkedNode<T> root) {
