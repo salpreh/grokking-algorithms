@@ -2,6 +2,7 @@ package com.salpreh.algorithms.models;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Queue;
@@ -23,6 +24,17 @@ public class NLinkedNode<T> implements Iterable<NLinkedNode<T>> {
   public NLinkedNode(T data, Collection<NLinkedNode<T>> children) {
     this.data = data;
     this.children = children;
+  }
+
+  public NLinkedNode(T data) {
+    this.data = data;
+    this.children = new ArrayList<>();
+  }
+
+  @SafeVarargs
+  public NLinkedNode(T data, NLinkedNode<T> ...children) {
+    this.data = data;
+    this.children = Arrays.asList(children);
   }
 
   public static <T> LinkedNode<T> of(T data) {
