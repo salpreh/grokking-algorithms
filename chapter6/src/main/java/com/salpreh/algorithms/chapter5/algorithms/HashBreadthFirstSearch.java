@@ -31,8 +31,7 @@ public class HashBreadthFirstSearch<T> implements BreadthFirstSearch<T> {
         path.add(node.getKey());
 
         return path;
-      }
-      else {
+      } else {
         Collection<T> children = graph.getOrDefault(node.getKey(), List.of());
         List<T> path = addToPath(node.getValue(), node.getKey());
         queue.addAll(packItemsWithPath(children, path));
