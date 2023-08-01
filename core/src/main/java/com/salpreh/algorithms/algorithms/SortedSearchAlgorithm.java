@@ -1,13 +1,13 @@
 package com.salpreh.algorithms.algorithms;
 
-public interface SortedSearch<T extends Comparable<T>> {
+public interface SortedSearchAlgorithm<T extends Comparable<T>, R> {
 
   /**
    * Returns the index of the item.
    * @param item
-   * @return index of the item, or -1 if not found
+   * @return Result of the search
    */
-  int search(T item);
+  R search(T item);
 
   /**
    * Returns true if the item is in the collection.

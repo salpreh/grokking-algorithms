@@ -1,9 +1,9 @@
 package com.salpreh.algorithms.chapter1.algorithms;
 
-import com.salpreh.algorithms.algorithms.SortedSearch;
+import com.salpreh.algorithms.algorithms.SortedSearchAlgorithm;
 import java.util.List;
 
-public class ListBinarySearch<T extends Comparable<T>> implements SortedSearch<T> {
+public class ListBinarySearch<T extends Comparable<T>> implements SortedSearchAlgorithm<T, Integer> {
 
   private final List<T> list;
 
@@ -12,7 +12,7 @@ public class ListBinarySearch<T extends Comparable<T>> implements SortedSearch<T
   }
 
   @Override
-  public int search(T item) {
+  public Integer search(T item) {
     int low = 0;
     int high = list.size() - 1;
     int idx;
