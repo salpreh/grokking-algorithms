@@ -49,6 +49,80 @@ public class DynamicProgramingExercises {
     );
   }
 
+  public static int fibonacci(int num) {
+    if (num < 1) return 0;
+    int[] results = new int[num + 1];
+
+    return fibonacci(num, results);
+  }
+
+  private static int fibonacci(int num, int[] results) {
+    if (num < 1) return 0;
+
+    if (num <= 2) results[num] = 1;
+    else {
+      int left = results[num-1] != 0 ? results[num-1] : fibonacci(num - 1, results);
+      int right = results[num-2] != 0 ? results[num-2] : fibonacci(num - 2, results);
+      results[num] = left + right;
+    }
+
+    return results[num];
+  }
+
+  public static int fibonacciBottomUp(int num) {
+    if (num < 1) return 0;
+    if (num <= 2) return 1;
+
+    int[] results = new int[num + 1];
+    results[1] = 1;
+    results[2] = 1;
+    for (int i = 3; i <= num; i++) {
+      results[i] = results[i-1] + results[i-2];
+    }
+
+    return results[num];
+  }
+
+  public static int travellerGridOptions(int width, int height) {
+    if (width <= 0 || height <= 0) return 0;
+
+    return travellerGridOptions(width, height, new int[width+1][height+1]);
+  }
+
+  private static int travellerGridOptions(int width, int height, int[][] results) {
+    if (width == 0 || height == 0) return 0;
+    if (width == 1 && height == 1) results[width][height] =  1;
+    else {
+      int left = results[width-1][height] != 0
+        ? results[width-1][height]
+        : travellerGridOptions(width - 1, height, results);
+      int right = results[width][height-1] != 0
+        ? results[width][height-1]
+        : travellerGridOptions(width, height - 1, results);
+
+      results[width][height] = left + right;
+    }
+
+    return results[width][height];
+  }
+
+  public static int travellerGridOptionsBottomUp(int width, int height) {
+    if (width == 0 || height ==0) return 0;
+    if (width == 1 && height == 1) return 1;
+
+    int[][] results = new int[width+1][height+1];
+    for (int j = 1; j <= height; j++) results[1][j] = 1;
+
+    results[1][1] = 1;
+    for (int i = 2; i <= width; i++) {
+      for (int j = 1; j <= height; j++) {
+        results[i][j] = results[i-1][j] + results[i][j-1];
+      }
+    }
+
+    return results[width][height];
+  }
+
   private static List<Item> getKnapsackBestValueItems(double[][] resultsTable, Integer[][] backtrack, List<Item> items) {
     int knapsackSize = resultsTable[0].length - 1;
     double currentValue = resultsTable[items.size()][knapsackSize];

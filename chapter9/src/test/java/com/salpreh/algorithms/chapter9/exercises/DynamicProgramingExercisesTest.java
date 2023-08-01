@@ -38,6 +38,43 @@ class DynamicProgramingExercisesTest {
     assertEquals("A", resultItems.get(1).name());
   }
 
+  @Test
+  void givenNumber_whenCalculateFibonacci_shouldReturn() {
+    // when
+    int result = DynamicProgramingExercises.fibonacci(6);
+
+    // then
+    assertEquals(8, result);
+  }
+
+  @Test
+  void givenNumber_whenCalculateFibonacciBottomUp_shouldReturn() {
+    // when
+    int result = DynamicProgramingExercises.fibonacciBottomUp(6);
+
+    // then
+    assertEquals(8, result);
+  }
+
+  @Test
+  void givenGridSize_whenCalculateGridOptions_shouldReturn() {
+    // when
+    int result = DynamicProgramingExercises.travellerGridOptions(4, 3);
+
+    // then
+    assertEquals(10, result);
+
+  }
+
+  @Test
+  void givenGridSize_whenCalculateGridOptionsBottomUp_shouldReturn() {
+    // when
+    int result = DynamicProgramingExercises.travellerGridOptionsBottomUp(4, 3);
+
+    // then
+    assertEquals(10, result);
+  }
+
   private List<Item> createItems() {
     return List.of(
       new Item("A", 1, 1D),
