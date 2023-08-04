@@ -3,6 +3,8 @@ package com.salpreh.algorithms.chapter9.exercises;
 import com.salpreh.algorithms.chapter9.models.Item;
 import com.salpreh.algorithms.models.Tuple;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 
@@ -121,6 +123,132 @@ public class DynamicProgramingExercises {
     }
 
     return results[width][height];
+  }
+
+  public static boolean canSum(int target, List<Integer> numbers) {
+    if (target < 0) return false;
+    if (target == 0) return true;
+
+    Boolean[] results = new Boolean[target + 1];
+
+    return canSum(target, numbers, results);
+  }
+
+  public static boolean canSum(int target, List<Integer> numbers, Boolean[] results) {
+    if (target < 0) return false;
+    if (target == 0) return true;
+
+    boolean result = false;
+    for (int number: numbers) {
+      int newTarget = target - number;
+      if (newTarget < 0) continue;
+
+      result = results[newTarget] != null
+        ? results[newTarget]
+        : canSum(newTarget, numbers, results);
+
+      if (result) break;
+    }
+    results[target] = result;
+
+    return result;
+  }
+
+  public static boolean canSumBottomUp(int target, List<Integer> numbers) {
+    if (target < 0) return false;
+    if (target == 0) return true;
+
+    boolean[][] results = new boolean[numbers.size()][target+1];
+
+    // Initialize first row
+    results[0][0] = true;
+    for (int j = 1; j <= target; j++) {
+      if (numbers.get(0) > j) results[0][j] = false;
+      else results[0][j] = results[0][j - numbers.get(0)];
+    }
+
+    for (int i = 1; i < numbers.size(); i++) {
+      results[i][0] = true;
+      int number = numbers.get(i);
+      for (int j = 1; j <= target; j++) {
+        if (number > j) results[i][j] = results[i-1][j];
+        else results[i][j] = results[i][j - number] || results[i-1][j];
+      }
+
+      // short circuit if we already know is possible
+      if (results[i][target]) return true;
+    }
+
+    return false;
+  }
+
+  public static boolean canSumBottomUp2(int target, List<Integer> numbers) {
+    if (target < 0) return false;
+
+    boolean[] results = new boolean[target + 1];
+    results[0] = true;
+    for (int i = 0; i < target; i++) {
+      if (!results[i]) continue;
+      for(Integer number : numbers) {
+        if (i + number <= target) results[i + number] = true;
+      }
+    }
+
+    return results[target];
+  }
+
+  public static List<Integer> howSum(int target, List<Integer> numbers) {
+    return howSum(target, numbers, Arrays.asList(new List[target + 1]));
+  }
+
+  public static List<Integer> howSum(int target, List<Integer> numbers, List<List<Integer>> results) {
+    if (target < 0) return null;
+    if (target == 0) return new ArrayList<>();
+    if (results.get(target) != null) return results.get(target);
+
+    List<Integer> sumNumbers = null;
+    for (int number: numbers) {
+      int newTarget = target - number;
+      if (newTarget < 0) continue;
+
+      sumNumbers = results.get(newTarget) != null
+        ? results.get(newTarget)
+        : howSum(newTarget, numbers);
+
+      if (sumNumbers != null) {
+        results.set(newTarget, sumNumbers);
+        sumNumbers = new ArrayList<>(sumNumbers);
+        sumNumbers.add(number);
+        break;
+      }
+    }
+
+    results.set(target, sumNumbers);
+
+    return sumNumbers;
+  }
+
+  public static List<Integer> howSumBottomUp(int target, List<Integer> numbers) {
+    if (target < 0) return null;
+
+    List<List<Integer>> results = Arrays.asList(new List[target + 1]);
+    results.set(0, new ArrayList<>());
+//    for (Integer number : numbers) {
+//      if (number > target) results.set(number, Collections.singletonList(number));
+//    }
+
+    for (int i = 0; i < target; i++) {
+      if (results.get(i) == null) continue;
+      for (Integer number : numbers) {
+        if (i + number <= target) {
+          List<Integer> newSum = new ArrayList<>(results.get(i));
+          newSum.add(number);
+          results.set(i + number, newSum);
+        }
+      }
+    }
+
+    return results.get(target);
   }
 
   private static List<Item> getKnapsackBestValueItems(double[][] resultsTable, Integer[][] backtrack, List<Item> items) {

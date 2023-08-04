@@ -1,6 +1,9 @@
 package com.salpreh.algorithms.chapter9.exercises;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.salpreh.algorithms.chapter9.models.Item;
 import java.util.List;
@@ -73,6 +76,136 @@ class DynamicProgramingExercisesTest {
 
     // then
     assertEquals(10, result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateCanSum_shouldReturnTrue() {
+    // given
+    int target = 13;
+    List<Integer> numbers = List.of(2, 3, 4);
+
+    // when
+    boolean result = DynamicProgramingExercises.canSum(target, numbers);
+
+    // then
+    assertTrue(result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateCanSum_shouldReturnFalse() {
+    // given
+    int target = 122;
+    List<Integer> numbers = List.of(3, 6);
+
+    // when
+    boolean result = DynamicProgramingExercises.canSum(target, numbers);
+
+    // then
+    assertFalse(result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateCanSumBottomUp_shouldReturnTrue() {
+    // given
+    int target = 13;
+    List<Integer> numbers = List.of(2, 3, 4);
+
+    // when
+    boolean result = DynamicProgramingExercises.canSumBottomUp(target, numbers);
+
+    // then
+    assertTrue(result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateCanSumBottomUp_shouldReturnFalse() {
+    // given
+    int target = 122;
+    List<Integer> numbers = List.of(3, 6);
+
+    // when
+    boolean result = DynamicProgramingExercises.canSumBottomUp(target, numbers);
+
+    // then
+    assertFalse(result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateCanSumBottomUp2_shouldReturnTrue() {
+    // given
+    int target = 13;
+    List<Integer> numbers = List.of(2, 3, 4);
+
+    // when
+    boolean result = DynamicProgramingExercises.canSumBottomUp2(target, numbers);
+
+    // then
+    assertTrue(result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateCanSumBottomUp2_shouldReturnFalse() {
+    // given
+    int target = 122;
+    List<Integer> numbers = List.of(3, 6);
+
+    // when
+    boolean result = DynamicProgramingExercises.canSumBottomUp2(target, numbers);
+
+    // then
+    assertFalse(result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateHowSum_shouldReturnNumbers() {
+    // given
+    int target = 13;
+    List<Integer> numbers = List.of(2, 3, 4);
+
+    // when
+    List<Integer> result = DynamicProgramingExercises.howSum(target, numbers);
+
+    // then
+    assertEquals(List.of(3, 2, 2, 2, 2, 2), result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateHowSumAndTargetNotReachable_shouldReturnNull() {
+    // given
+    int target = 7;
+    List<Integer> numbers = List.of(3, 5, 9);
+
+    // when
+    List<Integer> result = DynamicProgramingExercises.howSum(target, numbers);
+
+    // then
+    assertNull(result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateHowSumBottomUp_shouldReturnNumbers() {
+    // given
+    int target = 13;
+    List<Integer> numbers = List.of(2, 3, 4);
+
+    // when
+    List<Integer> result = DynamicProgramingExercises.howSumBottomUp(target, numbers);
+
+    // then
+    assertEquals(List.of(3, 2, 2, 2, 2, 2), result);
+  }
+
+  @Test
+  void givenNumbersAndTarget_whenCalculateHowSumBottomUpAndTargetNotReachable_shouldReturnNull() {
+    // given
+    int target = 7;
+    List<Integer> numbers = List.of(3, 5, 9);
+
+    // when
+    List<Integer> result = DynamicProgramingExercises.howSumBottomUp(target, numbers);
+
+    // then
+    assertNull(result);
   }
 
   private List<Item> createItems() {
